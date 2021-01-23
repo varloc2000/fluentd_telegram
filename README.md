@@ -5,7 +5,7 @@ Repository contains two Dockerfile configurations
 - telegram-send  https://github.com/rahiel/telegram-send
 
 Fluentd configured to work with [minecraft server docker container](https://hub.docker.com/r/itzg/minecraft-server) running with [fluentd log driver](https://docs.docker.com/config/containers/logging/fluentd/) 
-The goal is to collect all minecraft logs, individually match login/logoud/advancement/chat_message log records and send notification to Telegram Bot
+The goal is to collect all minecraft logs, individually match login/logout/advancement/chat_message game log records and send notification to Telegram Bot
 
 # Manual deploy to dodocker using docker machine
 
@@ -31,7 +31,7 @@ docker-machine use dodocker
 
 # Run fluentd container
 
-`docker run --privileged -dt --rm --name dodomi-fluent-logger -e RUBY_GC_HEAP_OLDOBJECT_LIMIT_FACTOR=0.9 -e TG_TOKEN=asdfasdf -v /home/varloc2000/web/fluentd/log:/fluentd/log -v /var/run/docker.sock:/var/run/docker.sock dodomi-fluentd:latest fluentd --log-rotate-age weekly`
+`docker run --privileged -dt --rm --name dodomi-fluent-logger -e RUBY_GC_HEAP_OLDOBJECT_LIMIT_FACTOR=0.9 -v /home/varloc2000/web/fluentd/log:/fluentd/log -v /var/run/docker.sock:/var/run/docker.sock dodomi-fluentd:latest fluentd --log-rotate-age weekly`
 
 ## 3 Get fluentd IP adress (typically 172.17.0.2)
 
