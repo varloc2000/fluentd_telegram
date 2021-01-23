@@ -1,3 +1,12 @@
+# What happens here?
+
+Repository contains two Dockerfile configurations
+- Fluentd https://hub.docker.com/r/fluent/fluentd/
+- telegram-send  https://github.com/rahiel/telegram-send
+
+Fluentd configured to work with [minecraft server docker container](https://hub.docker.com/r/itzg/minecraft-server) running with [fluentd log driver](https://docs.docker.com/config/containers/logging/fluentd/) 
+The goal is to collect all minecraft logs, individually match login/logoud/advancement/chat_message log records and send notification to Telegram Bot
+
 # Manual deploy to dodocker using docker machine
 
 ## Use dodocker machine
