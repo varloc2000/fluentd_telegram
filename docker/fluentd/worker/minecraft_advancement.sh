@@ -1,15 +1,17 @@
 #!/bin/sh
 
-# Process advancement log
-# Example: "[07:16:49] [Server thread/INFO]: <varloc2000> has made the advancement [Not Today, Thank You]"
+# Process advancement fluentd tag (Eg: row.minecraft.advancement.{username}.[{advanceent}]
+# Example: row.minecraft.advancement.masha.[Free the End]
 
 while IFS='' read -r line
 do
-  username="${line%%>*}"
-  username="${username#*<}"
+  username="${line%.[*}" # cut shortest match of .[* from the right
+  username="${username#*.}" # cut shortest match of *. from the left
+  username="${username#*.}" # cut shortest match of *. from the left
+  username="${username#*.}" # cut shortest match of *. from the left
 
-  advancement="${line##*[}"
-  advancement="${advancement%]}"
+  advancement="${line##*[}" # cut longest match of *[ from the left
+  advancement="${advancement%]}" # cut shortest match of ] from the right
 
   message="$username получил достижение '$advancement'"
 

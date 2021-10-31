@@ -32,12 +32,13 @@ docker-machine use dodocker
 # Run fluentd container
 
 `docker run --privileged -dt --rm --name dodomi-fluent-logger -e RUBY_GC_HEAP_OLDOBJECT_LIMIT_FACTOR=0.9 -v /home/varloc2000/web/fluentd/log:/fluentd/log -v /var/run/docker.sock:/var/run/docker.sock dodomi-fluentd:latest fluentd --log-rotate-age weekly`
+`docker run --privileged -dt --rm --name dodomi-fluent-logger -e TG_CHAT_ID=-1001296975499 -e TG_TOKEN=1497032862:AAGiSUXnIv68y2kIvHPZfNbw8Qz-Zs2rBzs -v /home/varloc2000/web/fluentd/log:/fluentd/log -v /var/run/docker.sock:/var/run/docker.sock dodomi-fluentd:latest fluentd --log-rotate-age weekly`
 
 ## 3 Get fluentd IP adress (typically 172.17.0.2)
 
 `docker inspect -f '{{.NetworkSettings.IPAddress}}' dodomi-fluent-logger`
 
-172.17.0.3
+172.17.0.2
 
 ## Backup minecraft data 
 
@@ -45,7 +46,10 @@ docker-machine use dodocker
 
 ## 4 Run minecraft container with fluentd
 
-`docker run --log-driver=fluentd --log-opt tag="docker.{{.ID}}" --log-opt fluentd-address=172.17.0.3:24224 -d -p 25565:25565 --name minecraft -e EULA=TRUE -e OPS=varloc2000,hecate,masha,zmicer -e SPAWN_PROTECTION=50 -e ALLOW_NETHER=true -e ONLINE_MODE=FALSE -e MEMORY=700m -v /home/docker/minecraft/_data:/data itzg/minecraft-server`
+`docker run --log-driver=fluentd --log-opt tag="docker.{{.ID}}" --log-opt fluentd-address=172.17.0.2:24224 -d -p 25565:25565 --name minecraft -e EULA=TRUE -e OPS=varloc2000,hecate,masha,zmicer -e SPAWN_PROTECTION=50 -e ALLOW_NETHER=true -e ONLINE_MODE=FALSE -e MEMORY=2G -v /home/docker/minecraft/_data:/data itzg/minecraft-server`
 
 docker run --env-file env.list -e TEXT="your text here" dodomi_telegram_send
 
+
+
+rsync -av -e 'docker-machine ssh dodocker' /home/varloc2000/Games/ServerMinecraft/plugins/* :/home/docker/minecraft/_data/plugins

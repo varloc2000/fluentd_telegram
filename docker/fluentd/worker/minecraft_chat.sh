@@ -1,17 +1,19 @@
 #!/bin/sh
 
-# Process telegram log
-# Example: "[07:16:49] [Server thread/INFO]: <varloc2000> miners! Hello this is my message to telegram!"
+# Process chat message fluentd tag (Eg: row.minecraft.telegram.{username}.[{time}].miners!{message}
+# Example: row.minecraft.telegram.masha.[05:36:01].miners! Custom message in game chat!!.
 
 while IFS='' read -r line
 do
-  time="${line#*[}"
-  time="${time%%]*}"
+  time="${line%%].*}" # cut longest match of ].* from the right
+  time="${time##*.[}" # cut longest match of .[* from the left
 
-  username="${line%%>*}"
-  username="${username#*<}"
+  username="${line%%.[*}" # cut longest match of .[* from the right
+  username="${username#*.}" # cut shortest match of *. from the left
+  username="${username#*.}" # cut shortest match of *. from the left
+  username="${username#*.}" # cut shortest match of *. from the left
 
-  chat_message="${line#*miners!}"
+  chat_message="${line#*].}" # cut shortest match of *]. from the left
 
   message="[$time GMT] Сообщение из игры от $username: $chat_message."
 

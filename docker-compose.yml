@@ -1,0 +1,23 @@
+version: '3.3'
+services:
+    minecraft-server:
+        logging:
+            driver: "fluentd"
+            options:
+                - tag: docker.{{.ID}}
+                - fluentd-address: 172.17.0.2:24224
+        ports:
+            - '25565:25565'
+        container_name: minecraft
+        environment:
+            - EULA=TRUE
+            - 'OPS=varloc2000,hecate,masha,zmicer'
+            - SPAWN_PROTECTION=50
+            - ALLOW_NETHER=true
+            - ONLINE_MODE=FALSE
+            - MEMORY=2G
+        volumes:
+            - '/home/docker/minecraft/_data:/data'
+        image: itzg/minecraft-server
+
+    # TODO: add fluentd and telegram send here into compose

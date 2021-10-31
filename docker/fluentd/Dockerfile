@@ -50,6 +50,7 @@ RUN ["chmod", "+x", "/bin/entrypoint.sh"]
 RUN ["chmod", "+x", "/bin/worker/_telegram_send.sh"]
 RUN ["chmod", "+x", "/bin/worker/minecraft_advancement.sh"]
 RUN ["chmod", "+x", "/bin/worker/minecraft_login.sh"]
+RUN ["chmod", "644", "/bin/worker/env.list"]
 #RUN ["find", "/bin/worker/", "-type", "f", "-iname", "*.sh", "-exec", "chmod", "+x", "{} \;"]
 
 #CMD ["wrapdocker"]
