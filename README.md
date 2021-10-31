@@ -32,7 +32,7 @@ docker-machine use dodocker
 # Run fluentd container
 
 `docker run --privileged -dt --rm --name dodomi-fluent-logger -e RUBY_GC_HEAP_OLDOBJECT_LIMIT_FACTOR=0.9 -v /home/varloc2000/web/fluentd/log:/fluentd/log -v /var/run/docker.sock:/var/run/docker.sock dodomi-fluentd:latest fluentd --log-rotate-age weekly`
-`docker run --privileged -dt --rm --name dodomi-fluent-logger -e TG_CHAT_ID=-1001296975499 -e TG_TOKEN=1497032862:AAGiSUXnIv68y2kIvHPZfNbw8Qz-Zs2rBzs -v /home/varloc2000/web/fluentd/log:/fluentd/log -v /var/run/docker.sock:/var/run/docker.sock dodomi-fluentd:latest fluentd --log-rotate-age weekly`
+`docker run --privileged -dt --rm --name dodomi-fluent-logger -e TG_CHAT_ID=-1001296975499 -e TG_TOKEN=TOKEN_HERE -v /home/varloc2000/web/fluentd/log:/fluentd/log -v /var/run/docker.sock:/var/run/docker.sock dodomi-fluentd:latest fluentd --log-rotate-age weekly`
 
 ## 3 Get fluentd IP adress (typically 172.17.0.2)
 
