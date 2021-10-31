@@ -6,7 +6,7 @@
 while IFS='' read -r line
 do
   time="${line%%].*}" # cut longest match of ].* from the right
-  time="${time##*.[}" # cut longest match of .[* from the left
+  time="${time#*.[}" # cut shortest match of .[* from the left
 
   username="${line%%>.[*}" # cut longest match of .[* from the right
   username="${username#*.<}" # cut shortest match of *. from the left
